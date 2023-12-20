@@ -1,23 +1,18 @@
 import { optimizeCss } from '@pandacss/core'
 import { ConfigNotFoundError } from '@pandacss/error'
 import { logger } from '@pandacss/logger'
-import type { ParserResult } from '@pandacss/parser'
 import { existsSync } from 'fs'
 import fsExtra from 'fs-extra'
-import pLimit from 'p-limit'
 import { resolve } from 'pathe'
 import type { Message, Root } from 'postcss'
 import { findConfig, loadConfigAndCreateContext } from './config'
 import { PandaContext } from './create-context'
 import type { DiffConfigResult } from './diff-engine'
-import { emitArtifacts } from './emit-artifact'
 import { extractFile } from './extract'
+import { emitArtifacts } from './emit-artifact'
 import { parseDependency } from './parse-dependency'
 
-const parserResultMap = new Map<string, ParserResult>()
 const fileModifiedMap = new Map<string, number>()
-
-const limit = pLimit(20)
 
 export class Builder {
   /**
@@ -26,7 +21,7 @@ export class Builder {
   context: PandaContext | undefined
 
   private hasEmitted = false
-  private hasFilesChanged = true
+  private filesMeta: { changes: Map<string, FileMeta>; hasFilesChanged: boolean } | undefined
   private affecteds: DiffConfigResult | undefined
 
   getConfigPath = () => {
@@ -52,7 +47,7 @@ export class Builder {
 
     this.affecteds = await ctx.diff.reloadConfigAndRefreshContext((conf) => {
       this.context = new PandaContext({ ...conf, hooks: ctx.hooks })
-      this.context.appendBaselineCss()
+      // this.context.appendBaselineCss() // TODO ?
     })
 
     logger.debug('builder', this.affecteds)
@@ -64,9 +59,9 @@ export class Builder {
       return
     }
 
-    // file change
-    this.hasFilesChanged = this.checkFilesChanged(ctx.getFiles())
-    if (this.hasFilesChanged) {
+    // file changes
+    this.filesMeta = this.checkFilesChanged(ctx.getFiles())
+    if (this.filesMeta.hasFilesChanged) {
       logger.debug('builder', 'Files changed, invalidating them')
       ctx.project.reloadSourceFiles()
     }
@@ -86,7 +81,7 @@ export class Builder {
     const { configPath, cwd } = options
 
     const ctx = await loadConfigAndCreateContext({ configPath, cwd })
-    ctx.appendBaselineCss()
+    // ctx.appendBaselineCss() // TODO ?
     this.context = ctx
 
     return ctx
@@ -105,31 +100,38 @@ export class Builder {
     return { mtime, isUnchanged }
   }
 
-  extractFile = async (ctx: PandaContext, file: string) => {
-    const meta = this.getFileMeta(file)
+  checkFilesChanged(files: string[]) {
+    const changes = new Map<string, FileMeta>()
 
-    if (meta.isUnchanged && this.affecteds?.hasConfigChanged) {
-      ctx.getParserCss(parserResultMap.get(file)!)
-      return
+    let hasFilesChanged = false
+
+    for (const file of files) {
+      const meta = this.getFileMeta(file)
+      changes.set(file, meta)
+      if (!meta.isUnchanged) {
+        hasFilesChanged = true
+      }
     }
 
-    const result = extractFile(ctx, file)
+    return { changes, hasFilesChanged }
+  }
+
+  extractFile = (ctx: PandaContext, file: string) => {
+    const meta = this.filesMeta?.changes.get(file) ?? this.getFileMeta(file)
+
+    const hasConfigChanged = this.affecteds ? this.affecteds.hasConfigChanged : true
+    if (meta.isUnchanged && !hasConfigChanged) return
+
+    const parserResult = extractFile(ctx, file)
+
     fileModifiedMap.set(file, meta.mtime)
 
-    if (result) {
-      parserResultMap.set(file, result)
-    }
-
-    return result
+    return parserResult
   }
 
-  checkFilesChanged(files: string[]) {
-    return files.some((file) => !this.getFileMeta(file).isUnchanged)
-  }
-
-  extract = async () => {
+  extract = () => {
     const hasConfigChanged = this.affecteds ? this.affecteds.hasConfigChanged : true
-    if (!this.hasFilesChanged && !hasConfigChanged) {
+    if (!this.filesMeta && !hasConfigChanged) {
       logger.debug('builder', 'No files or config changed, skipping extract')
       return
     }
@@ -139,9 +141,7 @@ export class Builder {
 
     const done = logger.time.info('Extracted in')
 
-    // limit concurrency since we might parse a lot of files
-    const promises = files.map((file) => limit(() => this.extractFile(ctx, file)))
-    await Promise.allSettled(promises)
+    files.map((file) => this.extractFile(ctx, file))
 
     done()
   }
@@ -164,22 +164,19 @@ export class Builder {
     return valid
   }
 
-  private initialRoot: string | undefined
-
   write = (root: Root) => {
-    if (!this.initialRoot) {
-      this.initialRoot = root.toString()
-    }
-
+    const rootCssContent = root.toString()
     root.removeAll()
 
-    const css = this.toString()
-    const newCss = optimizeCss(`
-    ${this.initialRoot}
-    ${css}
-    `)
+    const ctx = this.getContextOrThrow()
+    ctx.appendAllCss() // TODO ?
 
-    root.append(newCss)
+    root.append(
+      optimizeCss(`
+    ${rootCssContent}
+    ${this.toString()}
+    `),
+    )
   }
 
   registerDependency = (fn: (dep: Message) => void) => {
@@ -196,4 +193,9 @@ export class Builder {
       fn({ type: 'dependency', file: resolve(file) })
     }
   }
+}
+
+interface FileMeta {
+  mtime: number
+  isUnchanged: boolean
 }

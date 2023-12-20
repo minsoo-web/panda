@@ -1,10 +1,15 @@
 import { colors, logger } from '@pandacss/logger'
-import { parse } from 'pathe'
 import type { PandaContext } from './create-context'
+import * as nodePath from 'path'
+import type { CascadeLayers } from '@pandacss/types'
 
 export async function debugFiles(ctx: PandaContext, options: { outdir: string; dry: boolean; onlyConfig?: boolean }) {
   const files = ctx.getFiles()
   const measureTotal = logger.time.debug(`Done parsing ${files.length} files`)
+
+  // easier to debug
+  ctx.config.minify = false
+  ctx.config.optimize = true
 
   const { fs, path } = ctx.runtime
   const outdir = options.outdir
@@ -20,46 +25,47 @@ export async function debugFiles(ctx: PandaContext, options: { outdir: string; d
     return
   }
 
-  const results = await Promise.all(
+  const filesWithCss = []
+  await Promise.allSettled(
     files.map(async (file) => {
       const measure = logger.time.debug(`Parsed ${file}`)
-      const result = ctx.project.parseSourceFile(file)
+      const hashFactory = ctx.hashFactory.fork()
+      const result = ctx.project.parseSourceFile(file, hashFactory)
+
       measure()
-      return { file, result }
+      if (!result || hashFactory.isEmpty()) return
+
+      const styles = ctx.styleCollector.fork().collect(hashFactory)
+      ctx.layers = ctx.createLayers(ctx.config.layers as CascadeLayers)
+      ctx.stylesheet = ctx.createSheet()
+
+      const css = ctx.getParserCss(styles, file)
+      if (!css) return
+
+      if (options.dry) {
+        console.log({ path: file, ast: result, code: css })
+        return Promise.resolve()
+      }
+
+      if (outdir) {
+        filesWithCss.push(file)
+        const parsedPath = nodePath.parse(file)
+        const relative = path.relative(ctx.config.cwd, parsedPath.dir)
+
+        const astJsonPath = `${relative}/${parsedPath.name}.ast.json`.replaceAll(path.sep, '__')
+        const cssPath = `${relative}/${parsedPath.name}.css`.replaceAll(path.sep, '__')
+
+        logger.info('cli', `Writing ${colors.bold(`${outdir}/${astJsonPath}`)}`)
+        logger.info('cli', `Writing ${colors.bold(`${outdir}/${cssPath}`)}`)
+
+        return Promise.allSettled([
+          fs.writeFile(`${outdir}/${astJsonPath}`, JSON.stringify(result.toJSON(), null, 2)),
+          fs.writeFile(`${outdir}/${cssPath}`, css),
+        ])
+      }
     }),
   )
 
-  const filteredResults = results.filter(({ result }) => result && !result.isEmpty())
-
-  filteredResults.forEach(({ file, result }) => {
-    // clean the stylesheet
-    ctx.stylesheet.clean()
-
-    ctx.getParserCss(result)
-    const css = ctx.stylesheet.toCss({ optimize: true, minify: false })
-
-    if (options.dry) {
-      console.log({ path: file, ast: result, code: css })
-    }
-
-    if (outdir) {
-      const parsedPath = parse(file)
-      const relative = path.relative(ctx.config.cwd, parsedPath.dir)
-
-      const astJsonPath = `${relative}/${parsedPath.name}.ast.json`.replaceAll(path.sep, '__')
-      const cssPath = `${relative}/${parsedPath.name}.css`.replaceAll(path.sep, '__')
-
-      logger.info('cli', `Writing ${colors.bold(`${outdir}/${astJsonPath}`)}`)
-      logger.info('cli', `Writing ${colors.bold(`${outdir}/${cssPath}`)}`)
-
-      return Promise.allSettled([
-        fs.writeFile(`${outdir}/${astJsonPath}`, JSON.stringify(result!.toJSON(), null, 2)),
-        fs.writeFile(`${outdir}/${cssPath}`, css),
-      ])
-    }
-  })
-
-  logger.info('cli', `Found ${colors.bold(`${filteredResults.length}/${files.length}`)} files using Panda`)
-
+  logger.info('cli', `Found ${colors.bold(`${filesWithCss.length}/${files.length}`)} files using Panda`)
   measureTotal()
 }
