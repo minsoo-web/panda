@@ -108,10 +108,8 @@ export class Stylesheet {
 
   toCss = ({ optimize = false, minify }: { optimize?: boolean; minify?: boolean } = {}) => {
     try {
-      const {
-        conditions: { breakpoints },
-        utility,
-      } = this.context
+      const { utility } = this.context
+      const breakpoints = this.context.conditions.breakpoints
 
       const root = this.context.layers.insert()
 
