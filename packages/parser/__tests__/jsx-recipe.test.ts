@@ -109,6 +109,30 @@ describe('recipe jsx', () => {
             "name": "Button",
             "type": "jsx-recipe",
           },
+          {
+            "box": {
+              "column": 16,
+              "line": 16,
+              "node": "JsxSelfClosingElement",
+              "type": "map",
+              "value": Map {
+                "size" => {
+                  "column": 45,
+                  "line": 16,
+                  "node": "StringLiteral",
+                  "type": "literal",
+                  "value": "50px",
+                },
+              },
+            },
+            "data": [
+              {
+                "size": "50px",
+              },
+            ],
+            "name": "AnotherButtonWithRegex",
+            "type": "jsx-recipe",
+          },
         },
       }
     `)

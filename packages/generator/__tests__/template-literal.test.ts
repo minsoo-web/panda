@@ -18,24 +18,23 @@ describe('css template literal', () => {
     ).toMatchInlineSnapshot(`
       "@layer utilities {
         .width_500px {
-          width: 500px;
-        }
+          width: 500px
+      }
 
         .height_500px {
-          height: 500px;
-        }
+          height: 500px
+      }
 
         .background_red {
-          background: red;
-        }
-
-        @media (width >= 700px) {
-          .\\\\[\\\\@media_\\\\(min-width\\\\:_700px\\\\)\\\\]\\\\:background_blue {
-            background: #00f;
-          }
-        }
+          background: red
       }
-      "
+
+        @media (min-width: 700px) {
+          .\\\\[\\\\@media_\\\\(min-width\\\\:_700px\\\\)\\\\]\\\\:background_blue {
+            background: blue
+          }
+      }
+      }"
     `)
   })
 })

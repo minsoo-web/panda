@@ -32,20 +32,40 @@ export class Stylesheet {
 
   getLayer(layer: LayerName) {
     // return this.context.layers[layer] as postcss.AtRule | undefined
+    // const layers = this.context.layers
+
+    // const ruleset = new AtomicRule(this.context, ({ layer, rule }) => {
+    //   if (layer === 'composition') {
+    //     layers.utilities.compositions.append(rule)
+    //   } else if (typeof layer === 'string') {
+    //     layers.utilities.custom(layer).append(rule)
+    //   } else {
+    //     layers.utilities.root.append(rule)
+    //   }
+    // })
+
     switch (layer) {
+      case 'reset':
+        return this.context.layers.reset
       case 'base':
         return this.context.layers.base
       case 'tokens':
         return this.context.layers.tokens
-      case 'recipes':
-        return this.context.layers.recipes.root
       case 'recipes_base':
         return this.context.layers.recipes.base
-      case 'recipes_slots':
-        return this.context.layers.slotRecipes.root
+      case 'recipes':
+        return this.context.layers.recipes.root
       case 'recipes_slots_base':
         return this.context.layers.slotRecipes.base
+      case 'recipes_slots':
+        return this.context.layers.slotRecipes.root
+      case 'utilities':
+        return this.context.layers.utilities.root
+      case 'compositions':
+        return this.context.layers.utilities.compositions
       default:
+        // TODO
+        console.log(layer)
         return this.context.layers.utilities.custom(layer)
     }
   }
@@ -63,7 +83,7 @@ export class Stylesheet {
       layer.append(toCss(styles).toString())
     } catch (error) {
       if (error instanceof CssSyntaxError) {
-        logger.error('sheet', error)
+        logger.error('sheet:process', error)
       }
     }
     return
@@ -124,12 +144,12 @@ export class Stylesheet {
       return optimize ? optimizeCss(css, { minify }) : css
     } catch (error) {
       if (error instanceof CssSyntaxError) {
-        logger.error('sheet', error.message)
-        error.plugin && logger.error('sheet', `By plugin: ${error.plugin}:`)
+        logger.error('sheet:toCss', error.message)
+        error.plugin && logger.error('sheet:toCss', `By plugin: ${error.plugin}:`)
 
         if (error.source) {
-          logger.error('sheet', `Line ${error.line}:${error.column}, in:`)
-          logger.error('sheet', error.source)
+          logger.error('sheet:toCss', `Line ${error.line}:${error.column}, in:`)
+          logger.error('sheet:toCss', error.source)
         }
       }
 

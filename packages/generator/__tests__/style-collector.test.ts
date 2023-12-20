@@ -100,17 +100,17 @@ describe('hash factory', () => {
           },
         },
         {
-          "className": "border_1px_solid_token\\\\(red\\\\.100\\\\)",
+          "className": "border_1px_solid_token\\\\(colors\\\\.red\\\\.100\\\\)",
           "conditions": undefined,
           "entry": {
             "prop": "border",
-            "value": "1px solid token(red.100)",
+            "value": "1px solid token(colors.red.100)",
           },
-          "hash": "border]___[value:1px solid token(red.100)",
+          "hash": "border]___[value:1px solid token(colors.red.100)",
           "layer": undefined,
           "result": {
-            ".border_1px_solid_token\\\\(red\\\\.100\\\\)": {
-              "border": "1px solid token(red.100)",
+            ".border_1px_solid_token\\\\(colors\\\\.red\\\\.100\\\\)": {
+              "border": "1px solid token(colors.red.100)",
             },
           },
         },
@@ -161,6 +161,60 @@ describe('hash factory', () => {
           },
         },
         {
+          "className": "sm\\\\:w_2",
+          "conditions": [
+            {
+              "name": "breakpoint",
+              "params": "screen and (min-width: 40em)",
+              "raw": "sm",
+              "rawValue": "@media screen and (min-width: 40em)",
+              "type": "at-rule",
+              "value": "sm",
+            },
+          ],
+          "entry": {
+            "cond": "sm",
+            "prop": "width",
+            "value": "2",
+          },
+          "hash": "width]___[value:2]___[cond:sm",
+          "layer": undefined,
+          "result": {
+            ".sm\\\\:w_2": {
+              "@media screen and (min-width: 40em)": {
+                "width": "var(--sizes-2)",
+              },
+            },
+          },
+        },
+        {
+          "className": "xl\\\\:w_3",
+          "conditions": [
+            {
+              "name": "breakpoint",
+              "params": "screen and (min-width: 80em)",
+              "raw": "xl",
+              "rawValue": "@media screen and (min-width: 80em)",
+              "type": "at-rule",
+              "value": "xl",
+            },
+          ],
+          "entry": {
+            "cond": "xl",
+            "prop": "width",
+            "value": "3",
+          },
+          "hash": "width]___[value:3]___[cond:xl",
+          "layer": undefined,
+          "result": {
+            ".xl\\\\:w_3": {
+              "@media screen and (min-width: 80em)": {
+                "width": "var(--sizes-3)",
+              },
+            },
+          },
+        },
+        {
           "className": "fs_xs",
           "conditions": undefined,
           "entry": {
@@ -176,49 +230,28 @@ describe('hash factory', () => {
           },
         },
         {
-          "className": "dark\\\\:fs_2xl",
+          "className": "sm\\\\:fs_sm",
           "conditions": [
             {
-              "raw": "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]",
-              "type": "combinator-nesting",
-              "value": "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]",
+              "name": "breakpoint",
+              "params": "screen and (min-width: 40em)",
+              "raw": "sm",
+              "rawValue": "@media screen and (min-width: 40em)",
+              "type": "at-rule",
+              "value": "sm",
             },
           ],
           "entry": {
-            "cond": "_dark",
+            "cond": "sm",
             "prop": "fontSize",
-            "value": "2xl",
+            "value": "sm",
           },
-          "hash": "fontSize]___[value:2xl]___[cond:_dark",
+          "hash": "fontSize]___[value:sm]___[cond:sm",
           "layer": undefined,
           "result": {
-            ".dark\\\\:fs_2xl": {
-              "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]": {
-                "fontSize": "var(--font-sizes-2xl)",
-              },
-            },
-          },
-        },
-        {
-          "className": "\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:text_green",
-          "conditions": [
-            {
-              "raw": "&[data-attr='test']",
-              "type": "self-nesting",
-              "value": "&[data-attr='test']",
-            },
-          ],
-          "entry": {
-            "cond": "&[data-attr='test']",
-            "prop": "color",
-            "value": "green",
-          },
-          "hash": "color]___[value:green]___[cond:&[data-attr='test']",
-          "layer": undefined,
-          "result": {
-            ".\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:text_green": {
-              "&[data-attr='test']": {
-                "color": "green",
+            ".sm\\\\:fs_sm": {
+              "@media screen and (min-width: 40em)": {
+                "fontSize": "var(--font-sizes-sm)",
               },
             },
           },
@@ -248,31 +281,34 @@ describe('hash factory', () => {
           },
         },
         {
-          "className": "\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:expanded\\\\:text_purple",
+          "className": "hover\\\\:md\\\\:fs_lg",
           "conditions": [
             {
-              "raw": "&[data-attr='test']",
+              "raw": "&:is(:hover, [data-hover])",
               "type": "self-nesting",
-              "value": "&[data-attr='test']",
+              "value": "&:is(:hover, [data-hover])",
             },
             {
-              "raw": "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])",
-              "type": "self-nesting",
-              "value": "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])",
+              "name": "breakpoint",
+              "params": "screen and (min-width: 48em)",
+              "raw": "md",
+              "rawValue": "@media screen and (min-width: 48em)",
+              "type": "at-rule",
+              "value": "md",
             },
           ],
           "entry": {
-            "cond": "&[data-attr='test']<___>_expanded",
-            "prop": "color",
-            "value": "purple",
+            "cond": "_hover<___>md",
+            "prop": "fontSize",
+            "value": "lg",
           },
-          "hash": "color]___[value:purple]___[cond:&[data-attr='test']<___>_expanded",
+          "hash": "fontSize]___[value:lg]___[cond:_hover<___>md",
           "layer": undefined,
           "result": {
-            ".\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:expanded\\\\:text_purple": {
-              "&[data-attr='test']": {
-                "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])": {
-                  "color": "purple",
+            ".hover\\\\:md\\\\:fs_lg": {
+              "&:is(:hover, [data-hover])": {
+                "@media screen and (min-width: 48em)": {
+                  "fontSize": "var(--font-sizes-lg)",
                 },
               },
             },
@@ -304,6 +340,173 @@ describe('hash factory', () => {
               "&:is(:hover, [data-hover])": {
                 "&:is(:focus, [data-focus])": {
                   "fontSize": "var(--font-sizes-xl)",
+                },
+              },
+            },
+          },
+        },
+        {
+          "className": "dark\\\\:fs_2xl",
+          "conditions": [
+            {
+              "raw": "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]",
+              "type": "combinator-nesting",
+              "value": "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]",
+            },
+          ],
+          "entry": {
+            "cond": "_dark",
+            "prop": "fontSize",
+            "value": "2xl",
+          },
+          "hash": "fontSize]___[value:2xl]___[cond:_dark",
+          "layer": undefined,
+          "result": {
+            ".dark\\\\:fs_2xl": {
+              "[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]": {
+                "fontSize": "var(--font-sizes-2xl)",
+              },
+            },
+          },
+        },
+        {
+          "className": "sm\\\\:text_yellow",
+          "conditions": [
+            {
+              "name": "breakpoint",
+              "params": "screen and (min-width: 40em)",
+              "raw": "sm",
+              "rawValue": "@media screen and (min-width: 40em)",
+              "type": "at-rule",
+              "value": "sm",
+            },
+          ],
+          "entry": {
+            "cond": "sm",
+            "prop": "color",
+            "value": "yellow",
+          },
+          "hash": "color]___[value:yellow]___[cond:sm",
+          "layer": undefined,
+          "result": {
+            ".sm\\\\:text_yellow": {
+              "@media screen and (min-width: 40em)": {
+                "color": "yellow",
+              },
+            },
+          },
+        },
+        {
+          "className": "sm\\\\:bg_red",
+          "conditions": [
+            {
+              "name": "breakpoint",
+              "params": "screen and (min-width: 40em)",
+              "raw": "sm",
+              "rawValue": "@media screen and (min-width: 40em)",
+              "type": "at-rule",
+              "value": "sm",
+            },
+          ],
+          "entry": {
+            "cond": "sm",
+            "prop": "backgroundColor",
+            "value": "red",
+          },
+          "hash": "backgroundColor]___[value:red]___[cond:sm",
+          "layer": undefined,
+          "result": {
+            ".sm\\\\:bg_red": {
+              "@media screen and (min-width: 40em)": {
+                "backgroundColor": "red",
+              },
+            },
+          },
+        },
+        {
+          "className": "sm\\\\:hover\\\\:bg_green",
+          "conditions": [
+            {
+              "raw": "&:is(:hover, [data-hover])",
+              "type": "self-nesting",
+              "value": "&:is(:hover, [data-hover])",
+            },
+            {
+              "name": "breakpoint",
+              "params": "screen and (min-width: 40em)",
+              "raw": "sm",
+              "rawValue": "@media screen and (min-width: 40em)",
+              "type": "at-rule",
+              "value": "sm",
+            },
+          ],
+          "entry": {
+            "cond": "sm<___>_hover",
+            "prop": "backgroundColor",
+            "value": "green",
+          },
+          "hash": "backgroundColor]___[value:green]___[cond:sm<___>_hover",
+          "layer": undefined,
+          "result": {
+            ".sm\\\\:hover\\\\:bg_green": {
+              "&:is(:hover, [data-hover])": {
+                "@media screen and (min-width: 40em)": {
+                  "backgroundColor": "green",
+                },
+              },
+            },
+          },
+        },
+        {
+          "className": "\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:text_green",
+          "conditions": [
+            {
+              "raw": "&[data-attr='test']",
+              "type": "self-nesting",
+              "value": "&[data-attr='test']",
+            },
+          ],
+          "entry": {
+            "cond": "&[data-attr='test']",
+            "prop": "color",
+            "value": "green",
+          },
+          "hash": "color]___[value:green]___[cond:&[data-attr='test']",
+          "layer": undefined,
+          "result": {
+            ".\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:text_green": {
+              "&[data-attr='test']": {
+                "color": "green",
+              },
+            },
+          },
+        },
+        {
+          "className": "\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:expanded\\\\:text_purple",
+          "conditions": [
+            {
+              "raw": "&[data-attr='test']",
+              "type": "self-nesting",
+              "value": "&[data-attr='test']",
+            },
+            {
+              "raw": "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])",
+              "type": "self-nesting",
+              "value": "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])",
+            },
+          ],
+          "entry": {
+            "cond": "&[data-attr='test']<___>_expanded",
+            "prop": "color",
+            "value": "purple",
+          },
+          "hash": "color]___[value:purple]___[cond:&[data-attr='test']<___>_expanded",
+          "layer": undefined,
+          "result": {
+            ".\\\\[\\\\&\\\\[data-attr\\\\=\\\\'test\\\\'\\\\]\\\\]\\\\:expanded\\\\:text_purple": {
+              "&[data-attr='test']": {
+                "&:is([aria-expanded=true], [data-expanded], [data-state=\\"expanded\\"])": {
+                  "color": "purple",
                 },
               },
             },
@@ -418,209 +621,6 @@ describe('hash factory', () => {
                   ".target &": {
                     "_xl": "pink",
                   },
-                },
-              },
-            },
-          },
-        },
-        {
-          "className": "sm\\\\:w_2",
-          "conditions": [
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 40em)",
-              "raw": "sm",
-              "rawValue": "@media screen and (min-width: 40em)",
-              "type": "at-rule",
-              "value": "sm",
-            },
-          ],
-          "entry": {
-            "cond": "sm",
-            "prop": "width",
-            "value": "2",
-          },
-          "hash": "width]___[value:2]___[cond:sm",
-          "layer": undefined,
-          "result": {
-            ".sm\\\\:w_2": {
-              "@media screen and (min-width: 40em)": {
-                "width": "var(--sizes-2)",
-              },
-            },
-          },
-        },
-        {
-          "className": "sm\\\\:fs_sm",
-          "conditions": [
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 40em)",
-              "raw": "sm",
-              "rawValue": "@media screen and (min-width: 40em)",
-              "type": "at-rule",
-              "value": "sm",
-            },
-          ],
-          "entry": {
-            "cond": "sm",
-            "prop": "fontSize",
-            "value": "sm",
-          },
-          "hash": "fontSize]___[value:sm]___[cond:sm",
-          "layer": undefined,
-          "result": {
-            ".sm\\\\:fs_sm": {
-              "@media screen and (min-width: 40em)": {
-                "fontSize": "var(--font-sizes-sm)",
-              },
-            },
-          },
-        },
-        {
-          "className": "sm\\\\:text_yellow",
-          "conditions": [
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 40em)",
-              "raw": "sm",
-              "rawValue": "@media screen and (min-width: 40em)",
-              "type": "at-rule",
-              "value": "sm",
-            },
-          ],
-          "entry": {
-            "cond": "sm",
-            "prop": "color",
-            "value": "yellow",
-          },
-          "hash": "color]___[value:yellow]___[cond:sm",
-          "layer": undefined,
-          "result": {
-            ".sm\\\\:text_yellow": {
-              "@media screen and (min-width: 40em)": {
-                "color": "yellow",
-              },
-            },
-          },
-        },
-        {
-          "className": "sm\\\\:bg_red",
-          "conditions": [
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 40em)",
-              "raw": "sm",
-              "rawValue": "@media screen and (min-width: 40em)",
-              "type": "at-rule",
-              "value": "sm",
-            },
-          ],
-          "entry": {
-            "cond": "sm",
-            "prop": "backgroundColor",
-            "value": "red",
-          },
-          "hash": "backgroundColor]___[value:red]___[cond:sm",
-          "layer": undefined,
-          "result": {
-            ".sm\\\\:bg_red": {
-              "@media screen and (min-width: 40em)": {
-                "backgroundColor": "red",
-              },
-            },
-          },
-        },
-        {
-          "className": "xl\\\\:w_3",
-          "conditions": [
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 80em)",
-              "raw": "xl",
-              "rawValue": "@media screen and (min-width: 80em)",
-              "type": "at-rule",
-              "value": "xl",
-            },
-          ],
-          "entry": {
-            "cond": "xl",
-            "prop": "width",
-            "value": "3",
-          },
-          "hash": "width]___[value:3]___[cond:xl",
-          "layer": undefined,
-          "result": {
-            ".xl\\\\:w_3": {
-              "@media screen and (min-width: 80em)": {
-                "width": "var(--sizes-3)",
-              },
-            },
-          },
-        },
-        {
-          "className": "sm\\\\:hover\\\\:bg_green",
-          "conditions": [
-            {
-              "raw": "&:is(:hover, [data-hover])",
-              "type": "self-nesting",
-              "value": "&:is(:hover, [data-hover])",
-            },
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 40em)",
-              "raw": "sm",
-              "rawValue": "@media screen and (min-width: 40em)",
-              "type": "at-rule",
-              "value": "sm",
-            },
-          ],
-          "entry": {
-            "cond": "sm<___>_hover",
-            "prop": "backgroundColor",
-            "value": "green",
-          },
-          "hash": "backgroundColor]___[value:green]___[cond:sm<___>_hover",
-          "layer": undefined,
-          "result": {
-            ".sm\\\\:hover\\\\:bg_green": {
-              "&:is(:hover, [data-hover])": {
-                "@media screen and (min-width: 40em)": {
-                  "backgroundColor": "green",
-                },
-              },
-            },
-          },
-        },
-        {
-          "className": "hover\\\\:md\\\\:fs_lg",
-          "conditions": [
-            {
-              "raw": "&:is(:hover, [data-hover])",
-              "type": "self-nesting",
-              "value": "&:is(:hover, [data-hover])",
-            },
-            {
-              "name": "breakpoint",
-              "params": "screen and (min-width: 48em)",
-              "raw": "md",
-              "rawValue": "@media screen and (min-width: 48em)",
-              "type": "at-rule",
-              "value": "md",
-            },
-          ],
-          "entry": {
-            "cond": "_hover<___>md",
-            "prop": "fontSize",
-            "value": "lg",
-          },
-          "hash": "fontSize]___[value:lg]___[cond:_hover<___>md",
-          "layer": undefined,
-          "result": {
-            ".hover\\\\:md\\\\:fs_lg": {
-              "&:is(:hover, [data-hover])": {
-                "@media screen and (min-width: 48em)": {
-                  "fontSize": "var(--font-sizes-lg)",
                 },
               },
             },
@@ -1037,47 +1037,26 @@ describe('hash factory', () => {
           },
         },
         {
-          "className": "bg_transparent",
-          "conditions": undefined,
+          "className": "hover\\\\:bg_darkblue",
+          "conditions": [
+            {
+              "raw": "&:is(:hover, [data-hover])",
+              "type": "self-nesting",
+              "value": "&:is(:hover, [data-hover])",
+            },
+          ],
           "entry": {
+            "cond": "_hover",
             "prop": "backgroundColor",
-            "value": "transparent",
+            "value": "darkblue",
           },
-          "hash": "backgroundColor]___[value:transparent",
+          "hash": "backgroundColor]___[value:darkblue]___[cond:_hover",
           "layer": undefined,
           "result": {
-            ".bg_transparent": {
-              "backgroundColor": "var(--colors-transparent)",
-            },
-          },
-        },
-        {
-          "className": "border_1px_solid_blue",
-          "conditions": undefined,
-          "entry": {
-            "prop": "border",
-            "value": "1px solid blue",
-          },
-          "hash": "border]___[value:1px solid blue",
-          "layer": undefined,
-          "result": {
-            ".border_1px_solid_blue": {
-              "border": "1px solid blue",
-            },
-          },
-        },
-        {
-          "className": "text_blue",
-          "conditions": undefined,
-          "entry": {
-            "prop": "color",
-            "value": "blue",
-          },
-          "hash": "color]___[value:blue",
-          "layer": undefined,
-          "result": {
-            ".text_blue": {
-              "color": "blue",
+            ".hover\\\\:bg_darkblue": {
+              "&:is(:hover, [data-hover])": {
+                "backgroundColor": "darkblue",
+              },
             },
           },
         },
@@ -1125,6 +1104,99 @@ describe('hash factory', () => {
             ".\\\\[\\\\&\\\\[data-disabled\\\\]\\\\]\\\\:text_black": {
               "&[data-disabled]": {
                 "color": "var(--colors-black)",
+              },
+            },
+          },
+        },
+        {
+          "className": "bg_transparent",
+          "conditions": undefined,
+          "entry": {
+            "prop": "backgroundColor",
+            "value": "transparent",
+          },
+          "hash": "backgroundColor]___[value:transparent",
+          "layer": undefined,
+          "result": {
+            ".bg_transparent": {
+              "backgroundColor": "var(--colors-transparent)",
+            },
+          },
+        },
+        {
+          "className": "border_1px_solid_blue",
+          "conditions": undefined,
+          "entry": {
+            "prop": "border",
+            "value": "1px solid blue",
+          },
+          "hash": "border]___[value:1px solid blue",
+          "layer": undefined,
+          "result": {
+            ".border_1px_solid_blue": {
+              "border": "1px solid blue",
+            },
+          },
+        },
+        {
+          "className": "text_blue",
+          "conditions": undefined,
+          "entry": {
+            "prop": "color",
+            "value": "blue",
+          },
+          "hash": "color]___[value:blue",
+          "layer": undefined,
+          "result": {
+            ".text_blue": {
+              "color": "blue",
+            },
+          },
+        },
+        {
+          "className": "hover\\\\:bg_blue",
+          "conditions": [
+            {
+              "raw": "&:is(:hover, [data-hover])",
+              "type": "self-nesting",
+              "value": "&:is(:hover, [data-hover])",
+            },
+          ],
+          "entry": {
+            "cond": "_hover",
+            "prop": "backgroundColor",
+            "value": "blue",
+          },
+          "hash": "backgroundColor]___[value:blue]___[cond:_hover",
+          "layer": undefined,
+          "result": {
+            ".hover\\\\:bg_blue": {
+              "&:is(:hover, [data-hover])": {
+                "backgroundColor": "blue",
+              },
+            },
+          },
+        },
+        {
+          "className": "hover\\\\:text_white",
+          "conditions": [
+            {
+              "raw": "&:is(:hover, [data-hover])",
+              "type": "self-nesting",
+              "value": "&:is(:hover, [data-hover])",
+            },
+          ],
+          "entry": {
+            "cond": "_hover",
+            "prop": "color",
+            "value": "white",
+          },
+          "hash": "color]___[value:white]___[cond:_hover",
+          "layer": undefined,
+          "result": {
+            ".hover\\\\:text_white": {
+              "&:is(:hover, [data-hover])": {
+                "color": "var(--colors-white)",
               },
             },
           },
@@ -1197,78 +1269,6 @@ describe('hash factory', () => {
             ".\\\\[\\\\&\\\\[data-disabled\\\\]\\\\]\\\\:text_gray": {
               "&[data-disabled]": {
                 "color": "gray",
-              },
-            },
-          },
-        },
-        {
-          "className": "hover\\\\:bg_darkblue",
-          "conditions": [
-            {
-              "raw": "&:is(:hover, [data-hover])",
-              "type": "self-nesting",
-              "value": "&:is(:hover, [data-hover])",
-            },
-          ],
-          "entry": {
-            "cond": "_hover",
-            "prop": "backgroundColor",
-            "value": "darkblue",
-          },
-          "hash": "backgroundColor]___[value:darkblue]___[cond:_hover",
-          "layer": undefined,
-          "result": {
-            ".hover\\\\:bg_darkblue": {
-              "&:is(:hover, [data-hover])": {
-                "backgroundColor": "darkblue",
-              },
-            },
-          },
-        },
-        {
-          "className": "hover\\\\:bg_blue",
-          "conditions": [
-            {
-              "raw": "&:is(:hover, [data-hover])",
-              "type": "self-nesting",
-              "value": "&:is(:hover, [data-hover])",
-            },
-          ],
-          "entry": {
-            "cond": "_hover",
-            "prop": "backgroundColor",
-            "value": "blue",
-          },
-          "hash": "backgroundColor]___[value:blue]___[cond:_hover",
-          "layer": undefined,
-          "result": {
-            ".hover\\\\:bg_blue": {
-              "&:is(:hover, [data-hover])": {
-                "backgroundColor": "blue",
-              },
-            },
-          },
-        },
-        {
-          "className": "hover\\\\:text_white",
-          "conditions": [
-            {
-              "raw": "&:is(:hover, [data-hover])",
-              "type": "self-nesting",
-              "value": "&:is(:hover, [data-hover])",
-            },
-          ],
-          "entry": {
-            "cond": "_hover",
-            "prop": "color",
-            "value": "white",
-          },
-          "hash": "color]___[value:white]___[cond:_hover",
-          "layer": undefined,
-          "result": {
-            ".hover\\\\:text_white": {
-              "&:is(:hover, [data-hover])": {
-                "color": "var(--colors-white)",
               },
             },
           },
@@ -1641,7 +1641,7 @@ describe('hash factory', () => {
           },
         },
         {
-          "className": "border-width_1px",
+          "className": "border-w_1px",
           "conditions": undefined,
           "entry": {
             "prop": "borderWidth",
@@ -1650,7 +1650,7 @@ describe('hash factory', () => {
           "hash": "borderWidth]___[value:1px",
           "layer": undefined,
           "result": {
-            ".border-width_1px": {
+            ".border-w_1px": {
               "borderWidth": "1px",
             },
           },

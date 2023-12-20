@@ -3,10 +3,20 @@ import type { Stylesheet } from '@pandacss/core'
 
 export const generateStaticCss = (ctx: Context, sheet?: Stylesheet) => {
   const { config, staticCss } = ctx
-  const { optimize = true, minify } = config
-  if (!config.staticCss) return ''
+  const { optimize = true, minify, theme = {} } = config
 
-  const engine = staticCss.process(config.staticCss, sheet)
+  const rules = config.staticCss ?? {}
+  rules.recipes = rules.recipes ?? {}
+
+  const recipeConfigs = Object.assign({}, theme.recipes ?? {}, theme.slotRecipes ?? {})
+
+  Object.entries(recipeConfigs).forEach(([name, recipe]) => {
+    if (recipe.staticCss) {
+      rules.recipes![name] = recipe.staticCss
+    }
+  })
+
+  const engine = staticCss.process(rules, sheet)
 
   if (!sheet) {
     const output = engine.sheet.toCss({ optimize, minify })

@@ -121,31 +121,29 @@ describe('extract Vue templates', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        @layer utilities {
-          .text_green\\\\.400 {
-            color: var(--colors-green-400)
+        .text_green\\\\.400 {
+          color: var(--colors-green-400)
       }
 
-          .text_purple\\\\.400 {
-            color: var(--colors-purple-400)
+        .text_purple\\\\.400 {
+          color: var(--colors-purple-400)
       }
 
-          .text_red\\\\.500 {
-            color: var(--colors-red-500)
+        .text_red\\\\.500 {
+          color: var(--colors-red-500)
       }
 
-          .text_red {
-            color: red
+        .text_red {
+          color: red
       }
 
-          .font_bold {
-            font-weight: var(--font-weights-bold)
+        .font_bold {
+          font-weight: var(--font-weights-bold)
       }
 
-          .text_green {
-            color: green
+        .text_green {
+          color: green
       }
-          }
       }"
     `)
   })
@@ -264,12 +262,9 @@ describe('extract Vue templates', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-
-        @layer utilities {
-          .text_grey\\\\.70 {
-            color: grey.70
+        .text_grey\\\\.70 {
+          color: grey.70
       }
-          }
       }"
     `)
   })
@@ -378,31 +373,29 @@ describe('extract Vue templates', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        @layer utilities {
-          .text_green\\\\.400 {
-            color: var(--colors-green-400)
+        .text_green\\\\.400 {
+          color: var(--colors-green-400)
       }
 
-          .text_purple\\\\.400 {
-            color: var(--colors-purple-400)
+        .text_purple\\\\.400 {
+          color: var(--colors-purple-400)
       }
 
-          .text_red\\\\.500 {
-            color: var(--colors-red-500)
+        .text_red\\\\.500 {
+          color: var(--colors-red-500)
       }
 
-          .text_red {
-            color: red
+        .text_red {
+          color: red
       }
 
-          .font_bold {
-            font-weight: var(--font-weights-bold)
+        .font_bold {
+          font-weight: var(--font-weights-bold)
       }
 
-          .text_green {
-            color: green
+        .text_green {
+          color: green
       }
-          }
       }"
     `)
   })
@@ -521,31 +514,29 @@ describe('extract Vue templates', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        @layer utilities {
-          .text_green\\\\.400 {
-            color: var(--colors-green-400)
+        .text_green\\\\.400 {
+          color: var(--colors-green-400)
       }
 
-          .text_purple\\\\.400 {
-            color: var(--colors-purple-400)
+        .text_purple\\\\.400 {
+          color: var(--colors-purple-400)
       }
 
-          .text_red\\\\.500 {
-            color: var(--colors-red-500)
+        .text_red\\\\.500 {
+          color: var(--colors-red-500)
       }
 
-          .text_red {
-            color: red
+        .text_red {
+          color: red
       }
 
-          .font_bold {
-            font-weight: var(--font-weights-bold)
+        .font_bold {
+          font-weight: var(--font-weights-bold)
       }
 
-          .text_green {
-            color: green
+        .text_green {
+          color: green
       }
-          }
       }"
     `)
   })

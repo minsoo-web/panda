@@ -46,27 +46,28 @@ describe('compositions', () => {
   test('should respect the layer', () => {
     expect(css({ textStyle: 'headline.h1' })).toMatchInlineSnapshot(`
       "@layer utilities {
-          @layer compositions {
-              .textStyle_headline\\\\.h1 {
-                  font-size: 2rem;
-                  font-weight: var(--font-weights-bold)
-              }
+        @layer compositions {
+          .textStyle_headline\\\\.h1 {
+            font-size: 2rem;
+            font-weight: var(--font-weights-bold)
+      }
           }
       }"
     `)
 
     expect(css({ textStyle: 'headline.h2' })).toMatchInlineSnapshot(`
       "@layer utilities {
-          @layer compositions {
-              .textStyle_headline\\\\.h2 {
-                  font-size: 1.5rem;
-                  @media screen and (min-width: 64em) {
-                      & {
-                          font-size: 2rem
-                      }
-                  }
-                  font-weight: var(--font-weights-bold)
-              }
+        @layer compositions {
+          .textStyle_headline\\\\.h2 {
+            font-size: 1.5rem;
+            font-weight: var(--font-weights-bold);
+      }
+
+          @media screen and (min-width: 64em) {
+            .textStyle_headline\\\\.h2 {
+              font-size: 2rem;
+          }
+      }
           }
       }"
     `)

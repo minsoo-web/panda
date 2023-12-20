@@ -82,7 +82,7 @@ describe('hash factory', () => {
       `
       Set {
         "color]___[value:red !important",
-        "border]___[value:1px solid token(red.100)",
+        "border]___[value:1px solid token(colors.red.100)",
         "background]___[value:blue.300",
         "textStyle]___[value:headline.h1",
         "width]___[value:1",
@@ -326,7 +326,7 @@ describe('hash factory', () => {
         "btn",
       ]
     `)
-    expect(processor.hashFactory?.hashes).toMatchInlineSnapshot(`
+    expect(processor.hashFactory?.results).toMatchInlineSnapshot(`
       {
         "atomic": Set {},
         "recipes": Map {
@@ -350,29 +350,31 @@ describe('hash factory', () => {
       "@layer recipes {
         @layer _base {
           .btn {
-            outline: var(--borders-none);
             line-height: 1.2;
-            display: inline-flex;
-          }
+      }
 
           .btn:is(:disabled, [disabled], [data-disabled]) {
-            opacity: .4;
-          }
+            opacity: 0.4;
+      }
+
+          .btn {
+            display: inline-flex;
+            outline: var(--borders-none);
+      }
 
           .btn:is(:focus-visible, [data-focus-visible]) {
             box-shadow: outline;
-          }
+      }
 
           .btn:is(:focus, [data-focus]) {
             z-index: 1;
-          }
+      }
 
           .btn:is(:hover, [data-hover]):is(:disabled, [disabled], [data-disabled]) {
             background: initial;
-          }
-        }
       }
-      "
+          }
+      }"
     `)
   })
 
@@ -446,7 +448,7 @@ describe('hash factory', () => {
         "navbar",
       ]
     `)
-    expect(processor.hashFactory?.hashes).toMatchInlineSnapshot(`
+    expect(processor.hashFactory?.results).toMatchInlineSnapshot(`
       {
         "atomic": Set {},
         "recipes": Map {
@@ -468,28 +470,30 @@ describe('hash factory', () => {
     expect(result.toCss()).toMatchInlineSnapshot(`
       "@layer recipes {
         @layer _base {
-          .navbar[data-part=\\"blur\\"] {
-            box-shadow: 0 2px 4px #00000005, 0 1px #0000000f;
-          }
-
-          [data-theme=\\"dark\\"] .navbar[data-part=\\"blur\\"], .dark .navbar[data-part=\\"blur\\"], .navbar[data-part=\\"blur\\"].dark, .navbar[data-part=\\"blur\\"][data-theme=\\"dark\\"] {
+          [data-theme=dark] .navbar[data-part=\\"blur\\"], .dark .navbar[data-part=\\"blur\\"], .navbar[data-part=\\"blur\\"].dark, .navbar[data-part=\\"blur\\"][data-theme=dark] {
             background: dark;
-            box-shadow: inset 0 -1px #ffffff1a;
-          }
-
-          @supports ((-webkit-backdrop-filter: blur(1px))) or (backdrop-filter: blur(1px)) {
-            [data-theme=\\"dark\\"] .navbar[data-part=\\"blur\\"], .dark .navbar[data-part=\\"blur\\"], .navbar[data-part=\\"blur\\"].dark, .navbar[data-part=\\"blur\\"][data-theme=\\"dark\\"] {
-              background-color: #121212cc !important;
-            }
-
-            .navbar[data-part=\\"blur\\"] {
-              -webkit-backdrop-filter: blur(8px);
-              background-color: #ffffffd9 !important;
-            }
-          }
-        }
+            box-shadow: 0 -1px 0 rgba(255,255,255,.1) inset;
       }
-      "
+
+          .navbar[data-part=\\"blur\\"] {
+            box-shadow: 0 2px 4px rgba(0,0,0,.02),0 1px 0 rgba(0,0,0,.06);
+      }
+
+          @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+            [data-theme=dark] .navbar[data-part=\\"blur\\"], .dark .navbar[data-part=\\"blur\\"], .navbar[data-part=\\"blur\\"].dark, .navbar[data-part=\\"blur\\"][data-theme=dark] {
+              background-color: hsla(0,0%,7%,.8) !important;
+          }
+      }
+
+          @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+            .navbar[data-part=\\"blur\\"] {
+              backdrop-filter: blur(8px);
+              -webkit-backdrop-filter: blur(8px);
+              background-color: rgba(255, 255, 255, 0.85) !important;
+          }
+      }
+          }
+      }"
     `)
   })
 
@@ -547,7 +551,7 @@ describe('hash factory', () => {
             },
           },
         }),
-      ).hashes,
+      ).results,
     ).toMatchInlineSnapshot(`
       {
         "atomic": Set {

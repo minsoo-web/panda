@@ -72,5 +72,3 @@ export const fixturePreset: Omit<PresetCore, 'globalCss' | 'staticCss'> = {
     slotRecipes,
   },
 }
-
-export const config = fixturePreset

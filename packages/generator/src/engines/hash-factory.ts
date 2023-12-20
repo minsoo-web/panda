@@ -34,6 +34,7 @@ export interface CollectorContext
   > {}
 
 const identity = (v: any) => v
+const urlRegex = /^https?:\/\//
 
 export class HashFactory {
   static separator = ']___['
@@ -61,7 +62,7 @@ export class HashFactory {
     return !this.atomic.size && !this.recipes.size && !this.compound_variants.size && !this.recipes_base.size
   }
 
-  get hashes() {
+  get results() {
     return {
       atomic: this.atomic,
       recipes: this.recipes,
@@ -89,12 +90,17 @@ export class HashFactory {
     let prevProp = ''
 
     // { mx: 4 } => { marginX: 4 }
-    const normalized = normalizeStyleObject(obj, this.context)
+    const normalized = normalizeStyleObject(obj, this.context, !baseEntry?.variants)
 
     traverse(
       normalized,
       ({ key, value: rawValue, path }) => {
         if (rawValue === undefined) {
+          return
+        }
+
+        // we don't want to extract and generate invalid CSS for urls
+        if (urlRegex.test(rawValue)) {
           return
         }
 
@@ -167,8 +173,8 @@ export class HashFactory {
     }
 
     const set = getOrCreateSet(this.recipes, recipeName)
-    const styles = Object.assign({}, config.defaultVariants, variants)
-    this.hashStyleObject(set, styles, { recipe: recipeName })
+    const variantObj = Object.assign({}, config.defaultVariants, variants)
+    this.hashStyleObject(set, variantObj, { recipe: recipeName, variants: true })
 
     if (config.compoundVariants && !this.compound_variants.has(recipeName)) {
       this.compound_variants.add(recipeName)
