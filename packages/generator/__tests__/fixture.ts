@@ -1,43 +1,16 @@
-import {
-  breakpoints,
-  conditions,
-  keyframes,
-  patterns,
-  recipes,
-  semanticTokens,
-  tokens,
-  utilities,
-} from '@pandacss/fixture'
-import { parseJson, stringifyJson } from '@pandacss/shared'
-import type { ConfigResultWithHooks, UserConfig } from '@pandacss/types'
-import { createHooks } from 'hookable'
+import { createGeneratorContext } from '@pandacss/fixture'
+import { type Config } from '@pandacss/types'
+import type { Context } from '../src/engines'
+import { RuleProcessor } from '../src/engines/rule-processor'
 
-const config: UserConfig = {
-  cwd: '',
-  include: [],
-  utilities,
-  patterns,
-  theme: {
-    tokens,
-    semanticTokens,
-    breakpoints,
-    keyframes,
-    recipes,
-  },
-  cssVarRoot: ':where(html)',
-  conditions: {
-    ...conditions,
-    dark: '[data-theme=dark] &, .dark &, &.dark, &[data-theme=dark]',
-    light: '[data-theme=light] &, .light &, &.light, &[data-theme=light]',
-  },
-  outdir: '',
+export const createRuleProcessor = (userConfig?: Config) => {
+  const ctx = createGeneratorContext(userConfig) as any as Context
+  return new RuleProcessor(ctx, { hash: ctx.hashFactory, styles: ctx.styleCollector })
 }
 
-export const generatorConfig = {
-  dependencies: [],
-  config,
-  path: '',
-  hooks: createHooks(),
-  serialized: stringifyJson(config),
-  deserialize: () => parseJson(stringifyJson(config)),
-} as ConfigResultWithHooks
+export function processRecipe(
+  recipe: 'buttonStyle' | 'textStyle' | 'tooltipStyle' | 'checkbox',
+  value: Record<string, any>,
+) {
+  return createRuleProcessor().recipe(recipe, value)?.toCss()
+}

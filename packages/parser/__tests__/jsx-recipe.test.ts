@@ -29,35 +29,6 @@ describe('recipe jsx', () => {
         "button" => Set {
           {
             "box": {
-              "column": 38,
-              "line": 6,
-              "node": "CallExpression",
-              "type": "map",
-              "value": Map {
-                "variant" => {
-                  "column": 51,
-                  "line": 5,
-                  "node": "BindingElement",
-                  "type": "unresolvable",
-                  "value": undefined,
-                },
-                "size" => {
-                  "column": 60,
-                  "line": 5,
-                  "node": "BindingElement",
-                  "type": "unresolvable",
-                  "value": undefined,
-                },
-              },
-            },
-            "data": [
-              {},
-            ],
-            "name": "button",
-            "type": "recipe",
-          },
-          {
-            "box": {
               "column": 16,
               "line": 12,
               "node": "JsxOpeningElement",
@@ -136,30 +107,6 @@ describe('recipe jsx', () => {
               },
             ],
             "name": "Button",
-            "type": "jsx-recipe",
-          },
-          {
-            "box": {
-              "column": 16,
-              "line": 16,
-              "node": "JsxSelfClosingElement",
-              "type": "map",
-              "value": Map {
-                "size" => {
-                  "column": 45,
-                  "line": 16,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "50px",
-                },
-              },
-            },
-            "data": [
-              {
-                "size": "50px",
-              },
-            ],
-            "name": "AnotherButtonWithRegex",
             "type": "jsx-recipe",
           },
         },

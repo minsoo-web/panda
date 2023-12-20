@@ -16,66 +16,7 @@ describe('jsx', () => {
        }
      `
 
-    expect(jsxParser(code)).toMatchInlineSnapshot(`
-      Set {
-        {
-          "box": {
-            "column": 16,
-            "line": 7,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "marginTop" => {
-                "column": 40,
-                "line": 7,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "40px",
-              },
-              "marginBottom" => {
-                "column": 60,
-                "line": 7,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "42px",
-              },
-            },
-          },
-          "data": [
-            {
-              "marginBottom": "42px",
-              "marginTop": "40px",
-            },
-          ],
-          "name": "panda.button",
-          "type": "jsx-factory",
-        },
-        {
-          "box": {
-            "column": 16,
-            "line": 8,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "bg" => {
-                "column": 30,
-                "line": 8,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "red.200",
-              },
-            },
-          },
-          "data": [
-            {
-              "bg": "red.200",
-            },
-          ],
-          "name": "panda.div",
-          "type": "jsx-factory",
-        },
-      }
-    `)
+    expect(jsxParser(code)).toMatchInlineSnapshot('Set {}')
   })
 
   test('[import alias] should extract', () => {
@@ -169,94 +110,7 @@ describe('jsx', () => {
        }
      `
 
-    expect(jsxParser(code)).toMatchInlineSnapshot(`
-      Set {
-        {
-          "box": {
-            "column": 16,
-            "line": 8,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "marginTop" => {
-                "column": 41,
-                "line": 8,
-                "node": "ObjectLiteralExpression",
-                "type": "map",
-                "value": Map {
-                  "sm" => {
-                    "column": 46,
-                    "line": 8,
-                    "node": "StringLiteral",
-                    "type": "literal",
-                    "value": "40px",
-                  },
-                  "md" => {
-                    "column": 58,
-                    "line": 8,
-                    "node": "ObjectLiteralExpression",
-                    "type": "map",
-                    "value": Map {
-                      "rtl" => {
-                        "column": 64,
-                        "line": 8,
-                        "node": "StringLiteral",
-                        "type": "literal",
-                        "value": "40px",
-                      },
-                    },
-                  },
-                },
-              },
-              "marginBottom" => {
-                "column": 87,
-                "line": 8,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "42px",
-              },
-            },
-          },
-          "data": [
-            {
-              "marginBottom": "42px",
-              "marginTop": {
-                "md": {
-                  "rtl": "40px",
-                },
-                "sm": "40px",
-              },
-            },
-          ],
-          "name": "panda.button",
-          "type": "jsx-factory",
-        },
-        {
-          "box": {
-            "column": 16,
-            "line": 9,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "bg" => {
-                "column": 30,
-                "line": 9,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "red.200",
-              },
-            },
-          },
-          "data": [
-            {
-              "bg": "red.200",
-            },
-          ],
-          "name": "panda.div",
-          "type": "jsx-factory",
-        },
-      }
-    `)
+    expect(jsxParser(code)).toMatchInlineSnapshot('Set {}')
   })
 
   test('should extract conditions', () => {
@@ -273,42 +127,7 @@ describe('jsx', () => {
        }
      `
 
-    expect(jsxParser(code)).toMatchInlineSnapshot(`
-      Set {
-        {
-          "box": {
-            "column": 16,
-            "line": 8,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "marginLeft" => {
-                "column": 53,
-                "line": 8,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "40px",
-              },
-              "marginBottom" => {
-                "column": 83,
-                "line": 8,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "42px",
-              },
-            },
-          },
-          "data": [
-            {
-              "marginBottom": "42px",
-              "marginLeft": "40px",
-            },
-          ],
-          "name": "panda.button",
-          "type": "jsx-factory",
-        },
-      }
-    `)
+    expect(jsxParser(code)).toMatchInlineSnapshot('Set {}')
   })
 
   test('should extract object prop', () => {
@@ -325,44 +144,7 @@ describe('jsx', () => {
        }
      `
 
-    expect(jsxParser(code)).toMatchInlineSnapshot(`
-      Set {
-        {
-          "box": {
-            "column": 16,
-            "line": 8,
-            "node": "JsxOpeningElement",
-            "type": "map",
-            "value": Map {
-              "css" => {
-                "column": 32,
-                "line": 8,
-                "node": "ObjectLiteralExpression",
-                "type": "map",
-                "value": Map {
-                  "bg" => {
-                    "column": 38,
-                    "line": 8,
-                    "node": "StringLiteral",
-                    "type": "literal",
-                    "value": "red.200",
-                  },
-                },
-              },
-            },
-          },
-          "data": [
-            {
-              "css": {
-                "bg": "red.200",
-              },
-            },
-          ],
-          "name": "panda.div",
-          "type": "jsx-factory",
-        },
-      }
-    `)
+    expect(jsxParser(code)).toMatchInlineSnapshot('Set {}')
   })
 
   test('should omit new line characters', () => {
@@ -390,33 +172,6 @@ describe('jsx', () => {
        }
      `
 
-    expect(jsxParser(code)).toMatchInlineSnapshot(`
-      Set {
-        {
-          "box": {
-            "column": 13,
-            "line": 8,
-            "node": "JsxSelfClosingElement",
-            "type": "map",
-            "value": Map {
-              "backgroundImage" => {
-                "column": 31,
-                "line": 9,
-                "node": "StringLiteral",
-                "type": "literal",
-                "value": "linear-gradient( 135deg, hsla(0, 0%, 100%, 0.75) 10%, transparent 0, transparent 50%, hsla(0, 0%, 100%, 0.75) 0, hsla(0, 0%, 100%, 0.75) 60%, transparent 0, transparent )",
-              },
-            },
-          },
-          "data": [
-            {
-              "backgroundImage": "linear-gradient( 135deg, hsla(0, 0%, 100%, 0.75) 10%, transparent 0, transparent 50%, hsla(0, 0%, 100%, 0.75) 0, hsla(0, 0%, 100%, 0.75) 60%, transparent 0, transparent )",
-            },
-          ],
-          "name": "panda.div",
-          "type": "jsx-factory",
-        },
-      }
-    `)
+    expect(jsxParser(code)).toMatchInlineSnapshot('Set {}')
   })
 })

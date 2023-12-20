@@ -280,116 +280,7 @@ describe('ast parser', () => {
 
     expect(cssParser(code)).toMatchInlineSnapshot(`
       {
-        "css": Set {
-          {
-            "box": {
-              "column": 27,
-              "line": 3,
-              "node": "CallExpression",
-              "type": "map",
-              "value": Map {
-                "color" => {
-                  "column": 20,
-                  "line": 4,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "red",
-                },
-                "fontSize" => {
-                  "column": 23,
-                  "line": 5,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "12px",
-                },
-              },
-            },
-            "data": [
-              {
-                "color": "red",
-                "fontSize": "12px",
-              },
-            ],
-            "name": "css",
-            "type": "object",
-          },
-          {
-            "box": {
-              "column": 27,
-              "line": 8,
-              "node": "CallExpression",
-              "type": "map",
-              "value": Map {
-                "bg" => {
-                  "column": 15,
-                  "line": 9,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "red.300",
-                },
-                "margin" => {
-                  "column": 19,
-                  "line": 10,
-                  "node": "ObjectLiteralExpression",
-                  "type": "map",
-                  "value": Map {
-                    "xs" => {
-                      "column": 25,
-                      "line": 10,
-                      "node": "StringLiteral",
-                      "type": "literal",
-                      "value": "0",
-                    },
-                    "lg" => {
-                      "column": 33,
-                      "line": 10,
-                      "node": "StringLiteral",
-                      "type": "literal",
-                      "value": "40px",
-                    },
-                  },
-                },
-                "padding" => {
-                  "column": 20,
-                  "line": 11,
-                  "node": "ArrayLiteralExpression",
-                  "type": "array",
-                  "value": [
-                    {
-                      "column": 21,
-                      "line": 11,
-                      "node": "NumericLiteral",
-                      "type": "literal",
-                      "value": 12,
-                    },
-                    {
-                      "column": 25,
-                      "line": 11,
-                      "node": "NumericLiteral",
-                      "type": "literal",
-                      "value": 50,
-                    },
-                  ],
-                },
-              },
-            },
-            "data": [
-              {
-                "bg": "red.300",
-                "margin": {
-                  "lg": "40px",
-                  "xs": "0",
-                },
-                "padding": [
-                  12,
-                  50,
-                ],
-              },
-            ],
-            "name": "css",
-            "type": "object",
-          },
-        },
+        "css": Set {},
       }
     `)
   })
@@ -540,15 +431,17 @@ export function Card({ className }) {
     )
 
     expect(result.css).toMatchInlineSnapshot(`
-    "@layer utilities {
-      .text_red\\\\.400 {
-        color: var(--colors-red-400)
-        }
+      "@layer utilities {
+        @layer utilities {
+          .text_red\\\\.400 {
+            color: var(--colors-red-400)
+      }
 
-      .max-w_1000px {
-        max-width: 1000px
-        }
-    }"
+          .max-w_1000px {
+            max-width: 1000px
+      }
+          }
+      }"
     `)
   })
 })

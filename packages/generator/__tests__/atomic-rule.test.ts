@@ -1,7 +1,10 @@
 import { describe, expect, test } from 'vitest'
-import { createCssFn } from './fixture'
+import { createRuleProcessor } from './fixture'
+import type { SystemStyleObject } from '@pandacss/types'
 
-const css = createCssFn()
+const css = (styles: SystemStyleObject) => {
+  return createRuleProcessor().css(styles).toCss()
+}
 
 describe('atomic / with basic style object', () => {
   test('respect important syntax', () => {
@@ -112,17 +115,17 @@ describe('atomic / with basic style object', () => {
     ).toMatchInlineSnapshot(`
       "@layer utilities {
           .light\\\\:text_red {
-               &.light, .light & {
+              [data-theme=light] &, .light &, &.light, &[data-theme=light] {
                   color: red
               }
           }
           .dark\\\\:text_green {
-               &.dark, .dark & {
+              [data-theme=dark] &, .dark &, &.dark, &[data-theme=dark] {
                   color: green
               }
           }
           .dark\\\\:opacity_slate400 {
-               &.dark, .dark & {
+              [data-theme=dark] &, .dark &, &.dark, &[data-theme=dark] {
                   opacity: slate400
               }
           }
@@ -206,14 +209,14 @@ describe('atomic / with nesting scope', () => {
           }
           .\\\\[\\\\&_\\\\>_p\\\\]\\\\:light\\\\:bg_red400 {
               & > p {
-                   &.light, .light & {
+                  [data-theme=light] &, .light &, &.light, &[data-theme=light] {
                       background: red400
                   }
               }
           }
           .\\\\[\\\\&_\\\\>_p\\\\]\\\\:dark\\\\:bg_green500 {
               & > p {
-                   &.dark, .dark & {
+                  [data-theme=dark] &, .dark &, &.dark, &[data-theme=dark] {
                       background: green500
                   }
               }
@@ -228,8 +231,8 @@ describe('atomic / with nesting scope', () => {
           .\\\\[\\\\&_\\\\>_p\\\\]\\\\:ltr\\\\:dark\\\\:sm\\\\:hover\\\\:font_serif {
               & > p {
                   &:is(:hover, [data-hover]) {
-                      [dir=ltr] & {
-                           &.dark, .dark & {
+                      [data-theme=dark] &, .dark &, &.dark, &[data-theme=dark] {
+                          [dir=ltr] & {
                               @media screen and (min-width: 40em) {
                                   font: serif
                               }
@@ -360,7 +363,7 @@ describe('atomic / with grouped conditions styles', () => {
       "@layer utilities {
           .hover\\\\:sm\\\\:dark\\\\:bg_red\\\\.300 {
               &:is(:hover, [data-hover]) {
-                   &.dark, .dark & {
+                  [data-theme=dark] &, .dark &, &.dark, &[data-theme=dark] {
                       @media screen and (min-width: 40em) {
                           background: var(--colors-red-300)
                       }

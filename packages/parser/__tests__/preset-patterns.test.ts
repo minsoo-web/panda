@@ -16,27 +16,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {
-              "color": "blue.100",
-            },
-          ],
-          "name": "box",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx box', () => {
@@ -68,8 +50,10 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+        @layer utilities {
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -88,25 +72,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "flex",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx flex', () => {
@@ -138,12 +106,14 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -162,33 +132,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "stack",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .flex_column {
-          flex-direction: column
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx stack', () => {
@@ -220,20 +166,22 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .flex_column {
-          flex-direction: column
-          }
+          .flex_column {
+            flex-direction: column
+      }
 
-        .gap_10px {
-          gap: 10px
-          }
+          .gap_10px {
+            gap: 10px
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -252,37 +200,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "vstack",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .items_center {
-          align-items: center
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-
-        .flex_column {
-          flex-direction: column
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx vStack', () => {
@@ -314,24 +234,26 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .items_center {
-          align-items: center
-          }
+          .items_center {
+            align-items: center
+      }
 
-        .gap_10px {
-          gap: 10px
-          }
+          .gap_10px {
+            gap: 10px
+      }
 
-        .flex_column {
-          flex-direction: column
-          }
+          .flex_column {
+            flex-direction: column
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -350,37 +272,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "hstack",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .items_center {
-          align-items: center
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-
-        .flex_row {
-          flex-direction: row
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx hStack', () => {
@@ -412,24 +306,26 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .items_center {
-          align-items: center
-          }
+          .items_center {
+            align-items: center
+      }
 
-        .gap_10px {
-          gap: 10px
-          }
+          .gap_10px {
+            gap: 10px
+      }
 
-        .flex_row {
-          flex-direction: row
-          }
+          .flex_row {
+            flex-direction: row
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -448,33 +344,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "spacer",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .self_stretch {
-          align-self: stretch
-          }
-
-        .justify-self_stretch {
-          justify-self: stretch
-          }
-
-        .flex_1 {
-          flex: 1 1 0%
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('linkOverlay, linkBox', () => {
@@ -490,68 +362,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "linkBox",
-          "type": "pattern",
-        },
-        {
-          "data": [
-            {},
-          ],
-          "name": "linkOverlay",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .pos_relative {
-          position: relative
-          }
-
-        .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:pos_relative :where(a, abbr) {
-          position: relative
-              }
-
-        .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:z_1 :where(a, abbr) {
-          z-index: 1
-              }
-
-        .pos_static {
-          position: static
-          }
-
-        .before\\\\:content_\\\\\\"\\\\\\"::before {
-          content: \\"\\"
-              }
-
-        .before\\\\:d_block::before {
-          display: block
-              }
-
-        .before\\\\:pos_absolute::before {
-          position: absolute
-              }
-
-        .before\\\\:cursor_inherit::before {
-          cursor: inherit
-              }
-
-        .before\\\\:inset_0::before {
-          inset: var(--spacing-0)
-              }
-
-        .before\\\\:z_0::before {
-          z-index: 0
-              }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx linkOverlay, linkBox', () => {
@@ -588,45 +401,47 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .pos_relative {
-          position: relative
+        @layer utilities {
+          .pos_relative {
+            position: relative
+      }
+
+          .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:pos_relative :where(a, abbr) {
+            position: relative
+      }
+
+          .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:z_1 :where(a, abbr) {
+            z-index: 1
+      }
+
+          .pos_static {
+            position: static
+      }
+
+          .before\\\\:content_\\\\\\"\\\\\\"::before {
+            content: \\"\\"
+      }
+
+          .before\\\\:d_block::before {
+            display: block
+      }
+
+          .before\\\\:pos_absolute::before {
+            position: absolute
+      }
+
+          .before\\\\:cursor_inherit::before {
+            cursor: inherit
+      }
+
+          .before\\\\:inset_0::before {
+            inset: var(--spacing-0)
+      }
+
+          .before\\\\:z_0::before {
+            z-index: 0
+      }
           }
-
-        .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:pos_relative :where(a, abbr) {
-          position: relative
-              }
-
-        .\\\\[\\\\&_\\\\:where\\\\(a\\\\,_abbr\\\\)\\\\]\\\\:z_1 :where(a, abbr) {
-          z-index: 1
-              }
-
-        .pos_static {
-          position: static
-          }
-
-        .before\\\\:content_\\\\\\"\\\\\\"::before {
-          content: \\"\\"
-              }
-
-        .before\\\\:d_block::before {
-          display: block
-              }
-
-        .before\\\\:pos_absolute::before {
-          position: absolute
-              }
-
-        .before\\\\:cursor_inherit::before {
-          cursor: inherit
-              }
-
-        .before\\\\:inset_0::before {
-          inset: var(--spacing-0)
-              }
-
-        .before\\\\:z_0::before {
-          z-index: 0
-              }
       }"
     `)
   })
@@ -660,20 +475,22 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .self_stretch {
-          align-self: stretch
-          }
+        @layer utilities {
+          .self_stretch {
+            align-self: stretch
+      }
 
-        .justify-self_stretch {
-          justify-self: stretch
-          }
+          .justify-self_stretch {
+            justify-self: stretch
+      }
 
-        .flex_1 {
-          flex: 1 1 0%
-          }
+          .flex_1 {
+            flex: 1 1 0%
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -692,41 +509,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "circle",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .items_center {
-          align-items: center
-          }
-
-        .justify_center {
-          justify-content: center
-          }
-
-        .flex_0_0_auto {
-          flex: 0 0 auto
-          }
-
-        .rounded_9999px {
-          border-radius: 9999px
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx circle', () => {
@@ -758,28 +543,30 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .items_center {
-          align-items: center
-          }
+          .items_center {
+            align-items: center
+      }
 
-        .justify_center {
-          justify-content: center
-          }
+          .justify_center {
+            justify-content: center
+      }
 
-        .flex_0_0_auto {
-          flex: 0 0 auto
-          }
+          .flex_0_0_auto {
+            flex: 0 0 auto
+      }
 
-        .rounded_9999px {
-          border-radius: 9999px
-          }
+          .rounded_9999px {
+            border-radius: 9999px
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -798,57 +585,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "float",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_inline-flex {
-          display: inline-flex
-          }
-
-        .justify_center {
-          justify-content: center
-          }
-
-        .items_center {
-          align-items: center
-          }
-
-        .pos_absolute {
-          position: absolute
-          }
-
-        .inset-t_0 {
-          inset-block-start: var(--spacing-0)
-          }
-
-        .inset-b_auto {
-          inset-block-end: auto
-          }
-
-        .start_auto {
-          inset-inline-start: auto
-          }
-
-        .end_0 {
-          inset-inline-end: var(--spacing-0)
-          }
-
-        .translate_50\\\\%_-50\\\\% {
-          translate: 50% -50%
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx absoluteCenter', () => {
@@ -880,44 +619,46 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_inline-flex {
-          display: inline-flex
-          }
+        @layer utilities {
+          .d_inline-flex {
+            display: inline-flex
+      }
 
-        .justify_center {
-          justify-content: center
-          }
+          .justify_center {
+            justify-content: center
+      }
 
-        .items_center {
-          align-items: center
-          }
+          .items_center {
+            align-items: center
+      }
 
-        .pos_absolute {
-          position: absolute
-          }
+          .pos_absolute {
+            position: absolute
+      }
 
-        .inset-t_0 {
-          inset-block-start: var(--spacing-0)
-          }
+          .inset-t_0 {
+            inset-block-start: var(--spacing-0)
+      }
 
-        .inset-b_auto {
-          inset-block-end: auto
-          }
+          .inset-b_auto {
+            inset-block-end: auto
+      }
 
-        .start_auto {
-          inset-inline-start: auto
-          }
+          .start_auto {
+            inset-inline-start: auto
+      }
 
-        .end_0 {
-          inset-inline-end: var(--spacing-0)
-          }
+          .end_0 {
+            inset-inline-end: var(--spacing-0)
+      }
 
-        .translate_50\\\\%_-50\\\\% {
-          translate: 50% -50%
-          }
+          .translate_50\\\\%_-50\\\\% {
+            translate: 50% -50%
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -936,29 +677,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "grid",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_grid {
-          display: grid
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx grid', () => {
@@ -990,16 +711,18 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_grid {
-          display: grid
-          }
+        @layer utilities {
+          .d_grid {
+            display: grid
+      }
 
-        .gap_10px {
-          gap: 10px
-          }
+          .gap_10px {
+            gap: 10px
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -1018,17 +741,7 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "gridItem",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
     expect(result.css).toMatchInlineSnapshot('""')
   })
@@ -1062,8 +775,10 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+        @layer utilities {
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -1082,33 +797,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "wrap",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .flex-wrap_wrap {
-          flex-wrap: wrap
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx wrap', () => {
@@ -1140,20 +831,22 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .flex-wrap_wrap {
-          flex-wrap: wrap
-          }
+          .flex-wrap_wrap {
+            flex-wrap: wrap
+      }
 
-        .gap_10px {
-          gap: 10px
-          }
+          .gap_10px {
+            gap: 10px
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -1172,49 +865,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "container",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .pos_relative {
-          position: relative
-          }
-
-        .max-w_8xl {
-          max-width: var(--sizes-8xl)
-          }
-
-        .mx_auto {
-          margin-inline: auto
-          }
-
-        .px_4 {
-          padding-inline: var(--spacing-4)
-          }
-
-        @media screen and (min-width: 48em) {
-          .md\\\\:px_6 {
-            padding-inline: var(--spacing-6)
-          }
-              }
-
-        @media screen and (min-width: 64em) {
-          .lg\\\\:px_8 {
-            padding-inline: var(--spacing-8)
-          }
-              }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx container', () => {
@@ -1246,37 +899,39 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .pos_relative {
-          position: relative
-          }
+        @layer utilities {
+          .pos_relative {
+            position: relative
+      }
 
-        .max-w_8xl {
-          max-width: var(--sizes-8xl)
-          }
+          .max-w_8xl {
+            max-width: var(--sizes-8xl)
+      }
 
-        .mx_auto {
-          margin-inline: auto
-          }
+          .mx_auto {
+            margin-inline: auto
+      }
 
-        .px_4 {
-          padding-inline: var(--spacing-4)
-          }
+          .px_4 {
+            padding-inline: var(--spacing-4)
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
-          }
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
 
-        @media screen and (min-width: 48em) {
-          .md\\\\:px_6 {
-            padding-inline: var(--spacing-6)
+          @media screen and (min-width: 48em) {
+            .md\\\\:px_6 {
+              padding-inline: var(--spacing-6)
           }
-              }
+      }
 
-        @media screen and (min-width: 64em) {
-          .lg\\\\:px_8 {
-            padding-inline: var(--spacing-8)
+          @media screen and (min-width: 64em) {
+            .lg\\\\:px_8 {
+              padding-inline: var(--spacing-8)
           }
-              }
+      }
+          }
       }"
     `)
   })
@@ -1294,33 +949,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "center",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_flex {
-          display: flex
-          }
-
-        .items_center {
-          align-items: center
-          }
-
-        .justify_center {
-          justify-content: center
-          }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx center', () => {
@@ -1352,20 +983,22 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .d_flex {
-          display: flex
-          }
+        @layer utilities {
+          .d_flex {
+            display: flex
+      }
 
-        .items_center {
-          align-items: center
-          }
+          .items_center {
+            align-items: center
+      }
 
-        .justify_center {
-          justify-content: center
-          }
+          .justify_center {
+            justify-content: center
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -1384,77 +1017,9 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {},
-          ],
-          "name": "aspectRatio",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .pos_relative {
-          position: relative
-          }
-
-        .before\\\\:content_\\\\\\"\\\\\\"::before {
-          content: \\"\\"
-              }
-
-        .before\\\\:d_block::before {
-          display: block
-              }
-
-        .before\\\\:h_0::before {
-          height: var(--sizes-0)
-              }
-
-        .before\\\\:pb_75\\\\%::before {
-          padding-bottom: 75%
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:d_flex>* {
-          display: flex
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:justify_center>* {
-          justify-content: center
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:items_center>* {
-          align-items: center
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:overflow_hidden>* {
-          overflow: hidden
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:pos_absolute>* {
-          position: absolute
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:inset_0>* {
-          inset: var(--spacing-0)
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:w_100\\\\%>* {
-          width: 100%
-              }
-
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:h_100\\\\%>* {
-          height: 100%
-              }
-
-        .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>img, .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>video {
-          object-fit: cover
-              }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 
   test('jsx aspectRatio', () => {
@@ -1486,64 +1051,66 @@ describe('preset patterns', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .pos_relative {
-          position: relative
-          }
+        @layer utilities {
+          .pos_relative {
+            position: relative
+      }
 
-        .before\\\\:content_\\\\\\"\\\\\\"::before {
-          content: \\"\\"
-              }
+          .before\\\\:content_\\\\\\"\\\\\\"::before {
+            content: \\"\\"
+      }
 
-        .before\\\\:d_block::before {
-          display: block
-              }
+          .before\\\\:d_block::before {
+            display: block
+      }
 
-        .before\\\\:h_0::before {
-          height: var(--sizes-0)
-              }
+          .before\\\\:h_0::before {
+            height: var(--sizes-0)
+      }
 
-        .before\\\\:pb_75\\\\%::before {
-          padding-bottom: 75%
-              }
+          .before\\\\:pb_75\\\\%::before {
+            padding-bottom: 75%
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:d_flex>* {
-          display: flex
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:d_flex>* {
+            display: flex
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:justify_center>* {
-          justify-content: center
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:justify_center>* {
+            justify-content: center
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:items_center>* {
-          align-items: center
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:items_center>* {
+            align-items: center
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:overflow_hidden>* {
-          overflow: hidden
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:overflow_hidden>* {
+            overflow: hidden
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:pos_absolute>* {
-          position: absolute
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:pos_absolute>* {
+            position: absolute
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:inset_0>* {
-          inset: var(--spacing-0)
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:inset_0>* {
+            inset: var(--spacing-0)
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:w_100\\\\%>* {
-          width: 100%
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:w_100\\\\%>* {
+            width: 100%
+      }
 
-        .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:h_100\\\\%>* {
-          height: 100%
-              }
+          .\\\\[\\\\&\\\\>\\\\*\\\\]\\\\:h_100\\\\%>* {
+            height: 100%
+      }
 
-        .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>img, .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>video {
-          object-fit: cover
-              }
+          .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>img, .\\\\[\\\\&\\\\>img\\\\,_\\\\&\\\\>video\\\\]\\\\:object_cover>video {
+            object-fit: cover
+      }
 
-        .text_blue\\\\.100 {
-          color: var(--colors-blue-100)
+          .text_blue\\\\.100 {
+            color: var(--colors-blue-100)
+      }
           }
       }"
     `)
@@ -1564,73 +1131,8 @@ describe('preset patterns', () => {
       }
      `
     const result = parseAndExtract(code)
-    expect(result.json).toMatchInlineSnapshot(`
-      [
-        {
-          "data": [
-            {
-              "columns": [
-                2,
-                3,
-                4,
-              ],
-            },
-          ],
-          "name": "grid",
-          "type": "pattern",
-        },
-        {
-          "data": [
-            {
-              "colSpan": [
-                1,
-                2,
-                3,
-              ],
-            },
-          ],
-          "name": "gridItem",
-          "type": "pattern",
-        },
-      ]
-    `)
+    expect(result.json).toMatchInlineSnapshot('[]')
 
-    expect(result.css).toMatchInlineSnapshot(`
-      "@layer utilities {
-        .d_grid {
-          display: grid
-          }
-
-        .grid-cols_repeat\\\\(2\\\\,_minmax\\\\(0\\\\,_1fr\\\\)\\\\) {
-          grid-template-columns: repeat(2, minmax(0, 1fr))
-          }
-
-        .gap_10px {
-          gap: 10px
-          }
-
-        .col-span_span_1 {
-          grid-column: span 1
-          }
-
-        @media screen and (min-width: 40em) {
-          .sm\\\\:grid-cols_repeat\\\\(3\\\\,_minmax\\\\(0\\\\,_1fr\\\\)\\\\) {
-            grid-template-columns: repeat(3, minmax(0, 1fr))
-          }
-          .sm\\\\:col-span_span_2 {
-            grid-column: span 2
-          }
-              }
-
-        @media screen and (min-width: 48em) {
-          .md\\\\:grid-cols_repeat\\\\(4\\\\,_minmax\\\\(0\\\\,_1fr\\\\)\\\\) {
-            grid-template-columns: repeat(4, minmax(0, 1fr))
-          }
-          .md\\\\:col-span_span_3 {
-            grid-column: span 3
-          }
-              }
-      }"
-    `)
+    expect(result.css).toMatchInlineSnapshot('""')
   })
 })

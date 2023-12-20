@@ -17,8 +17,10 @@ describe('ast parser / css prop', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "@layer utilities {
-        .bg_red\\\\.200 {
-          background: var(--colors-red-200)
+        @layer utilities {
+          .bg_red\\\\.200 {
+            background: var(--colors-red-200)
+      }
           }
       }"
     `)

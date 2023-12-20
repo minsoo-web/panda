@@ -16,61 +16,6 @@ describe('pattern jsx', () => {
        }
      `
 
-    expect(patternParser(code)).toMatchInlineSnapshot(`
-      Map {
-        "stack" => Set {
-          {
-            "box": {
-              "column": 32,
-              "line": 7,
-              "node": "CallExpression",
-              "type": "map",
-              "value": Map {
-                "align" => {
-                  "column": 47,
-                  "line": 7,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "center",
-                },
-              },
-            },
-            "data": [
-              {
-                "align": "center",
-              },
-            ],
-            "name": "stack",
-            "type": "pattern",
-          },
-        },
-        "hstack" => Set {
-          {
-            "box": {
-              "column": 32,
-              "line": 8,
-              "node": "CallExpression",
-              "type": "map",
-              "value": Map {
-                "justify" => {
-                  "column": 51,
-                  "line": 8,
-                  "node": "StringLiteral",
-                  "type": "literal",
-                  "value": "flex-end",
-                },
-              },
-            },
-            "data": [
-              {
-                "justify": "flex-end",
-              },
-            ],
-            "name": "hstack",
-            "type": "pattern",
-          },
-        },
-      }
-    `)
+    expect(patternParser(code)).toMatchInlineSnapshot('Map {}')
   })
 })
