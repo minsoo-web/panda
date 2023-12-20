@@ -27,6 +27,7 @@ import { PathEngine } from './path'
 import { Patterns } from './pattern'
 import { HashFactory } from './hash-factory'
 import { StyleCollector } from './style-collector'
+import { StaticCss } from './static-css'
 
 const helpers = { map: mapObject }
 
@@ -64,6 +65,7 @@ export class Context {
   stylesheet: Stylesheet
   hashFactory: HashFactory
   styleCollector: StyleCollector
+  staticCss: StaticCss
 
   // Props
   properties!: Set<string>
@@ -94,6 +96,7 @@ export class Context {
 
     this.hashFactory = new HashFactory(this)
     this.styleCollector = new StyleCollector(this)
+    this.staticCss = new StaticCss(this, { hash: this.hashFactory, styles: this.styleCollector })
   }
 
   get config() {

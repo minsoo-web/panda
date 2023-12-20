@@ -1,50 +1,16 @@
-import { getStaticCss } from '@pandacss/core'
 import type { Context } from '../../engines'
+import type { Stylesheet } from '@pandacss/core'
 
-export const generateStaticCss = (ctx: Context) => {
-  const { config, utility, recipes } = ctx
-  const { staticCss = {}, theme = {} } = config
+export const generateStaticCss = (ctx: Context, sheet?: Stylesheet) => {
+  const { config, staticCss } = ctx
+  const { optimize = true, minify } = config
+  if (!config.staticCss) return ''
 
-  staticCss.recipes = staticCss.recipes ?? {}
+  const engine = staticCss.process(config.staticCss, sheet)
 
-  const recipeConfigs = Object.assign({}, theme.recipes ?? {}, theme.slotRecipes ?? {})
-
-  Object.entries(recipeConfigs).forEach(([name, recipe]) => {
-    if (recipe.staticCss) {
-      staticCss.recipes![name] = recipe.staticCss
-    }
-  })
-
-  const getResult = getStaticCss(staticCss)
-
-  const results = getResult({
-    breakpoints: Object.keys(theme.breakpoints ?? {}),
-    getPropertyKeys: (prop: string) => {
-      const propConfig = utility.config[prop]
-      if (!propConfig) return []
-
-      const values = utility.getPropertyValues(propConfig)
-      if (!values) return []
-
-      return Object.keys(values)
-    },
-    getRecipeKeys: (recipe) => {
-      const recipeConfig = recipes.details.find((detail) => detail.baseName === recipe)
-      return Object.assign({ __base: recipeConfig?.config.base }, recipeConfig?.variantKeyMap ?? {})
-    },
-  })
-
-  results.css.forEach((css) => {
-    ctx.stylesheet.processAtomic(css)
-  })
-
-  results.recipes.forEach((result) => {
-    Object.entries(result).forEach(([name, value]) => {
-      const recipeConfig = recipes.getConfig(name)
-      if (!recipeConfig) return
-      ctx.stylesheet.processRecipe(name, recipeConfig, value)
-    })
-  })
-
-  void ctx.hooks.callHook('generator:css', 'static.css', '')
+  if (!sheet) {
+    const output = engine.sheet.toCss({ optimize, minify })
+    void ctx.hooks.callHook('generator:css', 'static.css', output)
+    return output
+  }
 }

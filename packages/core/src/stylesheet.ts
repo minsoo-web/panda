@@ -1,5 +1,5 @@
 import { logger } from '@pandacss/logger'
-import type { Dict, StyleCollectorType, SystemStyleObject, UserConfig } from '@pandacss/types'
+import type { CascadeLayer, Dict, StyleCollectorType, SystemStyleObject, UserConfig } from '@pandacss/types'
 import { CssSyntaxError } from 'postcss'
 import { expandCssFunctions, optimizeCss } from './optimize'
 import { serializeStyles } from './serialize'
@@ -28,8 +28,6 @@ export type LayerName =
   | 'compositions'
 
 export class Stylesheet {
-  content: string = ''
-
   constructor(private context: StylesheetContext) {}
 
   getLayer(layer: LayerName) {
@@ -101,9 +99,14 @@ export class Stylesheet {
     })
   }
 
-  setContent = (content: string) => {
-    this.content = content
-    return this
+  getLayerCss = (...layers: CascadeLayer[]) => {
+    return optimizeCss(
+      layers
+        .map((layer: CascadeLayer) => {
+          return this.context.layers.getLayer(layer).toString()
+        })
+        .join('\n'),
+    )
   }
 
   toCss = ({ optimize = false, minify }: { optimize?: boolean; minify?: boolean } = {}) => {
@@ -116,11 +119,7 @@ export class Stylesheet {
       breakpoints.expandScreenAtRule(root)
       expandCssFunctions(root, { token: utility.getToken, raw: this.context.utility.tokens.getByName })
 
-      let css = root.toString()
-
-      if (this.content) {
-        css = `${this.content}\n\n${css}`
-      }
+      const css = root.toString()
 
       return optimize ? optimizeCss(css, { minify }) : css
     } catch (error) {
