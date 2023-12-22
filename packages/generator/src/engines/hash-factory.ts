@@ -212,8 +212,15 @@ export class HashFactory {
     })
   }
 
-  processAtomicSlotRecipe(recipe: Pick<SlotRecipeConfig, 'base' | 'variants' | 'compoundVariants'>) {
+  processAtomicSlotRecipe = (
+    recipe: Pick<SlotRecipeConfig, 'base' | 'variants' | 'compoundVariants'> & Partial<Pick<SlotRecipeConfig, 'slots'>>,
+  ) => {
+    if (!recipe.slots) {
+      recipe.slots = Array.from(inferSlots(recipe as any))
+    }
+
     const slots = getSlotRecipes(recipe)
+
     for (const slotRecipe of Object.values(slots)) {
       this.processAtomicRecipe(slotRecipe)
     }
@@ -307,4 +314,19 @@ const getResolvedCondition = (cond: string, isCondition: (key: string) => boolea
   }
 
   return cond
+}
+
+const inferSlots = (recipe: SlotRecipeConfig) => {
+  const slots = new Set<string>()
+  Object.keys(recipe.base ?? {}).forEach((name) => {
+    slots.add(name)
+  })
+
+  Object.values(recipe.variants ?? {}).forEach((variants) => {
+    Object.keys(variants).forEach((name) => {
+      slots.add(name)
+    })
+  })
+
+  return slots
 }

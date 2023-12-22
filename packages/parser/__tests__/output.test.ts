@@ -676,7 +676,7 @@ describe('extract to css output pipeline', () => {
               "color": "lightgreen",
             },
           ],
-          "name": "panda",
+          "name": "styled",
           "type": "object",
         },
         {
@@ -705,7 +705,7 @@ describe('extract to css output pipeline', () => {
               "width": "11rem",
             },
           ],
-          "name": "panda.div",
+          "name": "styled.div",
           "type": "object",
         },
       ]
@@ -715,67 +715,67 @@ describe('extract to css output pipeline', () => {
       "@layer utilities {
         .color_lightgreen {
           color: lightgreen
-          }
+      }
 
         .\\\\[\\\\&_\\\\>_strong\\\\]\\\\:color_hotpink > strong {
           color: hotpink
-              }
+      }
 
         .background_transparent {
           background: transparent
-          }
+      }
 
         .border-radius_3px {
           border-radius: 3px
-          }
+      }
 
         .border_1px_solid_var\\\\(--accent-color\\\\) {
           border: 1px solid var(--accent-color)
-          }
+      }
 
         .color_token\\\\(colors\\\\.blue\\\\.100\\\\) {
           color: var(--colors-blue-100)
-          }
+      }
 
         .display_inline-block {
           display: inline-block
-          }
+      }
 
         .margin_0\\\\.5rem_1rem {
           margin: 0.5rem 1rem
-          }
+      }
 
         .padding_0\\\\.5rem_0 {
           padding: 0.5rem 0
-          }
+      }
 
         .transition_all_200ms_ease-in-out {
           transition: all 200ms ease-in-out
-          }
+      }
 
         .width_11rem {
           width: 11rem
-          }
+      }
 
         .\\\\[\\\\&\\\\:hover\\\\]\\\\:filter_brightness\\\\(0\\\\.85\\\\):hover {
           filter: brightness(0.85)
-              }
+      }
 
         .\\\\[\\\\&\\\\:hover\\\\]\\\\:\\\\[\\\\&\\\\:disabled\\\\]\\\\:filter_brightness\\\\(1\\\\):hover:disabled {
           filter: brightness(1)
-                  }
-
-        @media (min-width: 768px) {
-          .\\\\[\\\\@media_\\\\(min-width\\\\:_768px\\\\)\\\\]\\\\:\\\\[\\\\&\\\\:disabled\\\\]\\\\:filter_brightness\\\\(1\\\\):disabled {
-            filter: brightness(1)
-              }
-                  }
+      }
 
         @media (min-width: 768px) {
           .\\\\[\\\\@media_\\\\(min-width\\\\:_768px\\\\)\\\\]\\\\:padding_1rem_0 {
             padding: 1rem 0
           }
-              }
+      }
+
+        @media (min-width: 768px) {
+          .\\\\[\\\\@media_\\\\(min-width\\\\:_768px\\\\)\\\\]\\\\:\\\\[\\\\&\\\\:disabled\\\\]\\\\:filter_brightness\\\\(1\\\\):disabled {
+            filter: brightness(1)
+          }
+      }
       }"
     `)
   })
@@ -813,7 +813,7 @@ describe('extract to css output pipeline', () => {
       "@layer utilities {
         .background_transparent {
           background: transparent
-          }
+      }
 
         .border-radius_3px {
           border-radius: 3px
@@ -821,11 +821,11 @@ describe('extract to css output pipeline', () => {
 
         .border_1px_solid_var\\\\(--accent-color\\\\) {
           border: 1px solid var(--accent-color)
-          }
+      }
 
         .color_token\\\\(colors\\\\.blue\\\\.100\\\\) {
           color: var(--colors-blue-100)
-          }
+      }
       }"
     `)
   })
@@ -1349,7 +1349,7 @@ describe('extract to css output pipeline', () => {
               "color": "red.100",
             },
           ],
-          "name": "panda.div",
+          "name": "styled.div",
           "type": "object",
         },
         {
@@ -1358,7 +1358,7 @@ describe('extract to css output pipeline', () => {
               "color": "yellow.100",
             },
           ],
-          "name": "panda",
+          "name": "styled",
           "type": "object",
         },
       ]
@@ -1368,21 +1368,21 @@ describe('extract to css output pipeline', () => {
       "@layer utilities {
         .text_red\\\\.100 {
           color: var(--colors-red-100)
-          }
+      }
 
         .text_yellow\\\\.100 {
           color: var(--colors-yellow-100)
-          }
+      }
       }"
     `)
   })
 
   test('factory css - tagged template literal', () => {
     const code = `
-    import { panda } from ".panda/jsx"
+    import { styled } from ".styled/jsx"
 
     // TaggedTemplateExpression factory css
-    panda.div\`
+    styled.div\`
       color: var(--colors-purple-100);
     \`
    `
@@ -1395,7 +1395,7 @@ describe('extract to css output pipeline', () => {
               "color": "var(--colors-purple-100)",
             },
           ],
-          "name": "panda.div",
+          "name": "styled.div",
           "type": "object",
         },
       ]
@@ -1405,7 +1405,7 @@ describe('extract to css output pipeline', () => {
       "@layer utilities {
         .color_var\\\\(--colors-purple-100\\\\) {
           color: var(--colors-purple-100)
-          }
+      }
       }"
     `)
   })
@@ -3213,47 +3213,39 @@ describe('extract to css output pipeline', () => {
       "@layer utilities {
         .p_6 {
           padding: var(--spacing-6)
-          }
+      }
 
         .m_4 {
           margin: var(--spacing-4)
-          }
+      }
 
         .w_md {
           width: var(--sizes-md)
-          }
+      }
 
         .shadow_md {
           box-shadow: var(--shadows-md)
-          }
+      }
 
         .rounded_md {
           border-radius: var(--radii-md)
-          }
+      }
 
         [data-theme=dark] .dark\\\\:bg_\\\\#262626, .dark .dark\\\\:bg_\\\\#262626, .dark\\\\:bg_\\\\#262626.dark, .dark\\\\:bg_\\\\#262626[data-theme=dark] {
           background: #262626
-              }
+      }
 
         [data-theme=dark] .dark\\\\:text_white, .dark .dark\\\\:text_white, .dark\\\\:text_white.dark, .dark\\\\:text_white[data-theme=dark] {
           color: var(--colors-white)
-              }
-
-        .text-style_lg {
-          text-style: lg
-          }
-
-        .text-style_xl {
-          text-style: xl
-          }
+      }
 
         .font_semibold {
           font-weight: var(--font-weights-semibold)
-          }
+      }
 
         .pb_2 {
           padding-bottom: var(--spacing-2)
-          }
+      }
       }"
     `)
   })
