@@ -1,6 +1,6 @@
 import { Generator } from '@pandacss/generator'
 import { logger } from '@pandacss/logger'
-import { createProject, ParserResult, type PandaProject } from '@pandacss/parser'
+import { createProject, type PandaProject } from '@pandacss/parser'
 import type { ConfigResultWithHooks, Runtime } from '@pandacss/types'
 import { nodeRuntime } from './node-runtime'
 import { PandaOutputEngine } from './output-engine'
@@ -41,24 +41,19 @@ export class PandaContext extends Generator {
     this.diff = new DiffEngine(this)
   }
 
-  appendFilesCss() {
+  parseFiles() {
     const files = this.getFiles()
     const filesWithCss: string[] = []
-
-    const collector = new ParserResult(this.parserOptions, this.hashFactory)
 
     files.forEach((file) => {
       const measure = logger.time.debug(`Parsed ${file}`)
       const result = this.project.parseSourceFile(file)
 
       measure()
-      if (!result) return
+      if (!result || this.hashFactory.isEmpty()) return
 
-      collector.merge(result)
       filesWithCss.push(file)
     })
-
-    // this.getParserCss(collector)
 
     return filesWithCss
   }
@@ -66,14 +61,14 @@ export class PandaContext extends Generator {
   appendAllCss() {
     this.appendLayerParams()
     this.appendBaselineCss()
-    this.appendFilesCss()
+    this.parseFiles()
   }
 
-  async writeCss() {
+  async writeCss(css: string = this.getCss()) {
     return this.output.write({
       id: 'styles.css',
       dir: this.paths.root,
-      files: [{ file: 'styles.css', code: this.getCss() }],
+      files: [{ file: 'styles.css', code: css }],
     })
   }
 }

@@ -31,7 +31,7 @@ export class Generator extends Context {
     match(type)
       .with('preflight', () => generateResetCss(this))
       .with('tokens', () => generateTokenCss(this))
-      .with('static', () => generateStaticCss(this))
+      .with('static', () => generateStaticCss(this, this.stylesheet))
       .with('global', () => generateGlobalCss(this))
       .with('keyframes', () => generateKeyframeCss(this))
       .otherwise(() => {

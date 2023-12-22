@@ -12,10 +12,6 @@ export interface ProcessOptions {
 }
 export interface ToCssOptions extends Pick<UserConfig, 'optimize' | 'minify'> {}
 
-// export type LayerName = Exclude<
-//   keyof StylesheetContext['layers'],
-//   'insert' | 'utilities' | 'getLayer' | 'clean' | 'layerNames' | 'isValidParams' | 'params'
-// >
 export type LayerName =
   | 'base'
   | 'reset'
@@ -31,19 +27,6 @@ export class Stylesheet {
   constructor(private context: StylesheetContext) {}
 
   getLayer(layer: LayerName) {
-    // return this.context.layers[layer] as postcss.AtRule | undefined
-    // const layers = this.context.layers
-
-    // const ruleset = new AtomicRule(this.context, ({ layer, rule }) => {
-    //   if (layer === 'composition') {
-    //     layers.utilities.compositions.append(rule)
-    //   } else if (typeof layer === 'string') {
-    //     layers.utilities.custom(layer).append(rule)
-    //   } else {
-    //     layers.utilities.root.append(rule)
-    //   }
-    // })
-
     switch (layer) {
       case 'reset':
         return this.context.layers.reset
@@ -64,8 +47,7 @@ export class Stylesheet {
       case 'compositions':
         return this.context.layers.utilities.compositions
       default:
-        // TODO
-        console.log(layer)
+        // TODO, when is this called ?
         return this.context.layers.utilities.custom(layer)
     }
   }
