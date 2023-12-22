@@ -115,7 +115,7 @@ export const Playground = (props: UsePlayGroundProps) => {
                 artifacts={artifacts}
                 context={{
                   patterns: panda.context.patterns.details,
-                  recipes: Array.from(panda.context.recipes.rules.keys()),
+                  recipes: panda.context.recipes.keys,
                 }}
                 diffState={diffState}
               />
